@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("VLCToSerial")]
-[assembly: AssemblyCopyright("Copyright ©  2014 Craig Ceremuga")]
+[assembly: AssemblyCopyright("Copyright © 2014 Craig Ceremuga")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

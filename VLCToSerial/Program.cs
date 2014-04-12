@@ -98,10 +98,6 @@ namespace VLCToSerial
 
                 this.SendTextToSerial(_port, _lastStatus);
             }
-            else
-            {
-                this.LogToConsole(String.Format("Nothing new to send, sleeping for {0} milliseconds.", TIMER_MILLISECONDS));
-            }
         }
 
         private void LogToConsole(String text)

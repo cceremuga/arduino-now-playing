@@ -57,13 +57,19 @@ namespace VLCToSerial
                 _port = new SerialPort(portName, baudRate);
                 _port.Open();
 
-                //fire off now!
-                GrabNowPlayingFromVlc();
+                if (_port.IsOpen)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Cool, we're connected to the serial port, here we go!\n");
 
-                //30 second timer
-                _timer = new Timer(TIMER_MILLISECONDS);
-                _timer.Elapsed += new ElapsedEventHandler(timerElapsed);
-                _timer.Enabled = true;
+                    //fire off now!
+                    GrabNowPlayingFromVlc();
+
+                    //30 second timer
+                    _timer = new Timer(TIMER_MILLISECONDS);
+                    _timer.Elapsed += new ElapsedEventHandler(timerElapsed);
+                    _timer.Enabled = true;
+                }
             }
 
             return _port;
@@ -100,7 +106,7 @@ namespace VLCToSerial
 
         private void LogToConsole(String text)
         {
-            Console.Write(String.Format("[{0}] {1}", DateTime.Now, text));
+            Console.WriteLine(String.Format("[{0}] {1}", DateTime.Now, text));
         }
 
         private void SendTextToSerial(SerialPort port, String text)
@@ -111,7 +117,7 @@ namespace VLCToSerial
                 port.Write(text);
 
                 //log to console
-                this.LogToConsole(String.Format("Sent: {0}\n", text));
+                this.LogToConsole(String.Format("Sent: {0}", text));
             }
         }
 

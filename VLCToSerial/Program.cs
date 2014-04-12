@@ -114,6 +114,8 @@ namespace VLCToSerial
             p.InitializeNowPlaying();
 
             Console.ReadLine();
+
+            p._port.Close();
         }
     }
 }

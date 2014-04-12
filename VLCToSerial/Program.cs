@@ -83,7 +83,7 @@ namespace VLCToSerial
             VlcStatus nowPlaying = JsonConvert.DeserializeObject<VlcStatus>(nowPlayingJson);
 
             //format
-            String nowPlayingFormatted = nowPlaying.information.category.meta.now_playing.Replace(" - ", "\n");
+            String nowPlayingFormatted = nowPlaying.information.category.meta.now_playing.Replace(" - ", "<~>");
 
             //if different from last status, update last status, send to port
             if (_lastStatus != nowPlayingFormatted)
@@ -92,6 +92,15 @@ namespace VLCToSerial
 
                 this.SendTextToSerial(_port, _lastStatus);
             }
+            else
+            {
+                this.LogToConsole(String.Format("Nothing new to send, sleeping for {0} milliseconds.", TIMER_MILLISECONDS));
+            }
+        }
+
+        private void LogToConsole(String text)
+        {
+            Console.Write(String.Format("[{0}] {1}", DateTime.Now, text));
         }
 
         private void SendTextToSerial(SerialPort port, String text)
@@ -102,7 +111,7 @@ namespace VLCToSerial
                 port.Write(text);
 
                 //log to console
-                Console.WriteLine(String.Format("Sent: {0}", text));
+                this.LogToConsole(String.Format("Sent: {0}\n", text));
             }
         }
 

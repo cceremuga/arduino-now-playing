@@ -24,22 +24,44 @@ void loop()
     delay(100);
     
     //clear the screen
+    lcd.noAutoscroll();
     lcd.setCursor(0, 0);
     lcd.clear();
     
-    //read all the available characters
-    while (Serial.available() > 0) {
-      char ch = Serial.read();
-      
-      if (ch == '\n')
-      {
-        lcd.setCursor(0, 1);
-      }
-      else
-      {
-        //display each character to the LCD
-        lcd.write(ch);
-      }
+    String content = "";
+    char character;
+    
+    //read all available into a string buffer
+    while(Serial.available() > 0) {
+      character = Serial.read();
+      content.concat(character);
     }
+    
+    if (content != "") {
+      int newLineIndex = content.indexOf("<~>");
+      
+      String lineOne = content.substring(0, newLineIndex);
+      String lineTwo = content.substring(newLineIndex + 1);
+      
+      lcd.println(lineOne);
+      lcd.print(lineTwo);
+    }
+    
+    //read all the available characters
+   // while (Serial.available() > 0) {
+    //  char ch = Serial.read();
+      
+    //  if (ch == '\n')
+    //  {
+    //    lcd.setCursor(0, 1);
+    //  }
+    //  else
+    //  {
+        //display each character to the LCD
+    //    lcd.write(ch);
+    //  }
+    //}
+    
+    delay(2000);
   }
 }

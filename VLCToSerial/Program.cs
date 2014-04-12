@@ -128,8 +128,10 @@ namespace VLCToSerial
             //fire it up
             p.InitializeNowPlaying();
 
+            //if they hit enter, let's quit.
             Console.ReadLine();
 
+            //close down port just to be nice.
             p._port.Close();
         }
     }

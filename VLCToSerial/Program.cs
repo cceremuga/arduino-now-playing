@@ -83,7 +83,7 @@ namespace VLCToSerial
             VlcStatus nowPlaying = JsonConvert.DeserializeObject<VlcStatus>(nowPlayingJson);
 
             //format
-            String nowPlayingFormatted = String.Format("A: {0}", nowPlaying.information.category.meta.now_playing.Replace(" - ", " T: "));
+            String nowPlayingFormatted = nowPlaying.information.category.meta.now_playing.Replace(" - ", "\n");
 
             //if different from last status, update last status, send to port
             if (_lastStatus != nowPlayingFormatted)

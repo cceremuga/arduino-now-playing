@@ -5,15 +5,18 @@ This project hooks into the [VLC] jSON Web Interface, grabs now_playing data, pa
 
 This was written with [soma fm] in mind, but would likely apply to other streams / local file play. All you'd need to do is fork the repo, make your updates & profit!
 
-Included is a sample [Arduino] project which listens, receives serial data, splits artist / track into two separate lines and displays on a standard [16x2 character LCD display].
+Included is a sample [Arduino] project which listens, receives serial data, splits artist / track into two separate lines and displays on a standard [16x2 character LED display].
 
-Ultimitely, this is just a little project which I plan on taking from prototype to a final project for personal use, but I figured others may find it interesting as well.
+Ultimitely, this is just a little project which I plan on taking from prototype to completion for personal use, but I figured others may find it interesting as well.
 
 What's in store down the road?
 ----
 
-  - Auto-scrolling if output > 16 characters on a given line
+  - Fix occasional timing issues with serial communication.
+  - Less hard coded sillyness.
   - Actual versioning.
+  - More interactive options in C# portion on startup.
+  - Logging to file to keep tabs on what was previously played.
   - The sky's the limit, share your suggestions, please!
 
 Flashy Action Shot

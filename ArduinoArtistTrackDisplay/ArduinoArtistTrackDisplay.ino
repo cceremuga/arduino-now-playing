@@ -41,27 +41,17 @@ void loop()
       int newLineIndex = content.indexOf("<~>");
       
       String lineOne = content.substring(0, newLineIndex);
-      String lineTwo = content.substring(newLineIndex + 1);
+      String lineTwo = content.substring(newLineIndex + 3);
       
-      lcd.println(lineOne);
+      lcd.print(lineOne);
+      lcd.setCursor(0, 1);
       lcd.print(lineTwo);
-    }
-    
-    //read all the available characters
-   // while (Serial.available() > 0) {
-    //  char ch = Serial.read();
       
-    //  if (ch == '\n')
-    //  {
-    //    lcd.setCursor(0, 1);
-    //  }
-    //  else
-    //  {
-        //display each character to the LCD
-    //    lcd.write(ch);
-    //  }
-    //}
-    
-    delay(2000);
+      //wait 2 secs
+      delay(2000);
+      
+      //scroll if either line > 16 chars
+      //TODO
+    }
   }
 }

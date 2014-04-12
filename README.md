@@ -1,4 +1,4 @@
-VLC->Serial->Arduino
+VLC -> Serial -> Arduino
 =========
 
 This project hooks into the [VLC] jSON Web Interface, grabs now_playing data, parses it, pushes it over the serial port of your choosing.

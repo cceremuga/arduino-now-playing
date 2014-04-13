@@ -17,6 +17,7 @@ What's in store down the road?
   - Actual versioning.
   - More interactive options in C# portion on startup.
   - Logging to file to keep tabs on what was previously played.
+  - A project rename and potential Spotify support.
   - The sky's the limit, share your suggestions, please!
 
 Flashy Action Shot

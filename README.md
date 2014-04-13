@@ -12,16 +12,15 @@ Ultimitely, this is just a little project which I plan on taking from prototype 
 Known Issues
 ----
 
- - C# code is messy and super prototypey. Too much hard coded nonsense at the moment.
  - Occasional timing issues with serial communication (on the C++ side of things).
 
 What's in store down the road?
 ----
 
-  - More interactive options in C# portion on startup.
+  - More interactive options in C# portion on startup for VLC paths, etc.
   - Spotify support.
   - Unit tests, if I'm feeling generous!
-  - Logging to file to keep tabs on what was previously played (log4net or something).
+  - Logging to file to keep tabs on what was previously played (log4net, or something).
   - Maybe port the C# example to something a bit more cross-platform friendly.
   - The sky's the limit, share your suggestions, please!
 

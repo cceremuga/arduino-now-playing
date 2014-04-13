@@ -20,6 +20,7 @@ namespace NowPlayingToSerial
         private const String DEFAULT_SERIAL_PORT = "COM3";
 
         private Timer _vlcPollTimer;
+        private String _customVlcUrl = String.Empty;
         private SerialPort _outputSerialPort;
         private String _lastSentMessage = String.Empty;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -38,6 +39,16 @@ namespace NowPlayingToSerial
             //grab baud rate
             Int32 baudRate = PickABaudRate();
 
+            //grab menu choice
+            Int32 menuChoice = PresentMenuOptions();
+
+            if (menuChoice == 1)
+            {
+                //grab VLC url from user
+                _customVlcUrl = GetVlcUrlFromUser();
+            }
+
+            //serial time...
             if (baudRate > 0)
             {
                 //open the serial port
@@ -56,14 +67,21 @@ namespace NowPlayingToSerial
                     Console.Clear();
                     log.Info(String.Format("Connected to {0} at {1} baud, here we go!", portName, baudRate));
 
-                    try
+                    if (menuChoice == 1)
                     {
-                        //we're good to go!
-                        InitializeVlc();
+                        try
+                        {
+                            //we're good to go!
+                            InitializeVlc();
+                        }
+                        catch (WebException ex)
+                        {
+                            LogError(String.Format("Looks like VLC is unable to be found active at {0}. Please run the program again after starting VLC's web interface. Press enter to quit.", VLC_WEB_URL), ex);
+                        }
                     }
-                    catch (WebException ex)
+                    else
                     {
-                        LogError(String.Format("Looks like VLC is unable to be found active at {0}. Please run the program again after starting VLC's web interface. Press enter to quit.", VLC_WEB_URL), ex);
+                        Console.WriteLine("You've picked an unavailable option. Nothing left to do but press ENTER to quit.");
                     }
                 }
 
@@ -86,6 +104,47 @@ namespace NowPlayingToSerial
             p._outputSerialPort.Close();
 
             Environment.Exit(0);
+        }
+
+        /// <summary>
+        /// Presents choices between VLC and Spotify
+        /// </summary>
+        /// <returns>Menu option</returns>
+        private int PresentMenuOptions()
+        {
+            Int32 menuChoice = 1;
+
+            Console.WriteLine("\nWhich would you like to track? (1) for VLC, or (2) for Spotify. [1]");
+
+            String menuChoiceRaw = Console.ReadLine();
+
+            //parse what they typed in...
+            if (!String.IsNullOrEmpty(menuChoiceRaw))
+            {
+                Int32.TryParse(menuChoiceRaw, out menuChoice);
+                Console.WriteLine();
+            }
+
+            return menuChoice == 0 ? 1 : menuChoice;
+        }
+
+        /// <summary>
+        /// Overrides the default VLC URL with one specified by the user
+        /// </summary>
+        /// <returns>URL to the VLC web interface jSON page</returns>
+        private string GetVlcUrlFromUser()
+        {
+            String vlcUrl = VLC_WEB_URL;
+
+            Console.WriteLine(String.Format("\nWhat's the URL to your VLC web interface jSON page? [{0}]", VLC_WEB_URL));
+
+            String overrideUrl = Console.ReadLine();
+
+            //override vlc url if they put anything into the input.
+            if (!String.IsNullOrEmpty(overrideUrl) && overrideUrl != VLC_WEB_URL)
+                vlcUrl = overrideUrl;
+
+            return vlcUrl;
         }
 
         /// <summary>
@@ -189,7 +248,7 @@ namespace NowPlayingToSerial
         private void GrabNowPlayingFromVlc()
         {
             //grab jSON
-            var nowPlayingJson = new WebClient().DownloadString(VLC_WEB_URL);
+            var nowPlayingJson = new WebClient().DownloadString(_customVlcUrl);
 
             //deserialize
             VlcStatus nowPlaying = JsonConvert.DeserializeObject<VlcStatus>(nowPlayingJson);

@@ -13,11 +13,11 @@ The newest features
 ----
 
 * 4.13.2014 - log4net added to C# example console app. Logs will be generated / appended to PlayLog.txt in the directory where the application is running.
+* 4.13.2014 - More interactive menu in C# example with configurable VLC paths in prep for Spotify integration, woo!
 
 Future improvements
 ----
 
-* More interactive menu options in C# example console app on startup for VLC paths, etc.
 * Spotify support.
 * Unit tests, if I'm feeling particularly adventurous.
 * Maybe port the C# example to something a bit more cross-platform friendly.

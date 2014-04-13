@@ -5,18 +5,23 @@ Arduino Now Playing is a small project whose goal is to provide source code to d
 
 Currently supported is the fantastic [VLC] player via their jSON Web Interface. A handy example C# console app runs in your taskbar, grabs now_playing data, parses it and pushes it over the serial port of your choosing. The VLC integration was written with [soma fm] in mind, but would likely apply to other streams / local file play too. All you'd need to do is fork the repo, make your updates & profit!
 
-Included is a sample Arduino C++ schematic which listens via serial port, receives data, splits artist / track into two separate lines and displays via LiquidCrystal.h. Scrolling, if the length exceeds your usable display width.
+Included is a sample Arduino C++ sketch which listens via serial port, receives data, splits artist / track into two separate lines and displays via LiquidCrystal.h. Scrolling, if the length exceeds your usable display width.
 
 Ultimitely, this is just a little project which I plan on taking from prototype to completion for personal use, but I figured others may find it interesting as well.
+
+The newest features
+----
+
+* 4.13.2014 - log4net added to C# example console app. Logs will be generated / appended to PlayLog.txt in the directory where the application is running.
 
 Future improvements
 ----
 
-* More interactive options in C# portion on startup for VLC paths, etc.
+* More interactive menu options in C# example console app on startup for VLC paths, etc.
 * Spotify support.
-* Unit tests, if I'm feeling generous!
-* Logging to file to keep tabs on what was previously played (log4net, or something).
+* Unit tests, if I'm feeling particularly adventurous.
 * Maybe port the C# example to something a bit more cross-platform friendly.
+* Additional support in Arduino C++ sketch for very long titles.
 * The sky's the limit, share your suggestions, please!
 
 Flashy action shots

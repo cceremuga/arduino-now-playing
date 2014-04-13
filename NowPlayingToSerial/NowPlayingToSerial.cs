@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using log4net;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace NowPlayingToSerial
         private Timer _vlcPollTimer;
         private SerialPort _outputSerialPort;
         private String _lastSentMessage = String.Empty;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Constructor which grabs optional overrides via interactive input menu.
@@ -52,7 +54,7 @@ namespace NowPlayingToSerial
                 if (_outputSerialPort.IsOpen)
                 {
                     Console.Clear();
-                    LogMessageToConsole(String.Format("Connected to {0} at {1} baud, here we go!", portName, baudRate));
+                    log.Info(String.Format("Connected to {0} at {1} baud, here we go!", portName, baudRate));
 
                     try
                     {
@@ -70,6 +72,10 @@ namespace NowPlayingToSerial
 
         static void Main(string[] args)
         {
+            //log4net setup
+            log4net.Config.BasicConfigurator.Configure();
+            ILog log = log4net.LogManager.GetLogger(typeof(NowPlayingToSerial));
+
             //CONSTRUCT
             NowPlayingToSerial p = new NowPlayingToSerial();
 
@@ -207,22 +213,11 @@ namespace NowPlayingToSerial
         /// <param name="ex">Raw exception</param>
         private void LogError(String text, Exception ex)
         {
+            log.Error(ex.ToString());
+
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(text);
             Console.ResetColor();
-        }
-
-        /// <summary>
-        /// Logs a given message to the screen console with a timestamp.
-        /// </summary>
-        /// <param name="text">Message to log to screen</param>
-        private void LogMessageToConsole(String text)
-        {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write(String.Format("[{0}] ", DateTime.Now));
-            Console.ResetColor();
-            Console.Write(text);
-            Console.WriteLine();
         }
 
         /// <summary>
@@ -238,7 +233,7 @@ namespace NowPlayingToSerial
                 port.Write(text);
 
                 //log to console
-                this.LogMessageToConsole(String.Format("Data Sent: {0}", text));
+                log.Info(String.Format("Sent: {0}", text));
             }
         }
     }

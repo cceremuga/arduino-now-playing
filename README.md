@@ -1,4 +1,4 @@
-What's all this, then?
+What's this Arduino Now Playing thing?
 =========
 
 Arduino Now Playing is a small project whose goal is to provide source code to developers, enabling them to send "Now Playing" audio player updates to an [Arduino] connected 16x2 character LED display.
@@ -9,7 +9,7 @@ Included is a sample Arduino C++ schematic which listens via serial port, receiv
 
 Ultimitely, this is just a little project which I plan on taking from prototype to completion for personal use, but I figured others may find it interesting as well.
 
-What's in store down the road?
+Future improvements
 ----
 
   - More interactive options in C# portion on startup for VLC paths, etc.
@@ -19,10 +19,12 @@ What's in store down the road?
   - Maybe port the C# example to something a bit more cross-platform friendly.
   - The sky's the limit, share your suggestions, please!
 
-Flashy action shot
+Flashy action shots
 ----
 
-![LCD Output](http://i.imgur.com/cSCjJos.jpg "LCD Output")
+![C# Console App](http://i.imgur.com/EKAqgqH.jpg "C# Console App")
+
+![LCD Character Display](http://i.imgur.com/cSCjJos.jpg "LCD Character Display")
 
 Legal stuff
 -----------

@@ -218,7 +218,11 @@ namespace NowPlayingToSerial
         /// <param name="text">Message to log to screen</param>
         private void LogMessageToConsole(String text)
         {
-            Console.WriteLine(String.Format("[{0}] {1}", DateTime.Now, text));
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(String.Format("[{0}] ", DateTime.Now));
+            Console.ResetColor();
+            Console.Write(text);
+            Console.WriteLine();
         }
 
         /// <summary>

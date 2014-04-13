@@ -22,12 +22,17 @@ Future improvements
 Flashy action shots
 ----
 
+<<<<<<< HEAD
 Example C# console app displaying a running log of sent serial data:
 
 ![C# Console App](http://i.imgur.com/EKAqgqH.jpg "C# Console App")
 
 A prototype Arduino Uno compatible board receiving serial data and displaying on a 16x2 LCD character display:
 
+=======
+![C# Console App](http://i.imgur.com/EKAqgqH.jpg "C# Console App")
+
+>>>>>>> 796471e203d51c8eca27e3edb3b14fadc9288a66
 ![LCD Character Display](http://i.imgur.com/cSCjJos.jpg "LCD Character Display")
 
 Legal stuff

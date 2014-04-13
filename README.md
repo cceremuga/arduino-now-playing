@@ -1,23 +1,28 @@
 Arduino Now Playing
 =========
 
-Arduino Now Playing is a project whose goal is to provide source code to developers, enabling them to send "Now Playing" updates to an [Arduino] 16x2 character LED display.
+Arduino Now Playing is a project whose goal is to provide source code to developers, enabling them to send "Now Playing" audio player updates to an [Arduino] connected 16x2 character LED display.
 
 Currently supported is the fantastic [VLC] player via their jSON Web Interface. A handy example C# console app runs in your taskbar, grabs now_playing data, parses it and pushes it over the serial port of your choosing. The VLC integration was written with [soma fm] in mind, but would likely apply to other streams / local file play too. All you'd need to do is fork the repo, make your updates & profit!
 
-Included is a sample Arduino C schematic which listens, receives serial data, splits artist / track into two separate lines and displays via LiquidCrystal.h with autoscrolling if the length exceeds your display.
+Included is a sample Arduino C++ schematic which listens via serial port, receives data, splits artist / track into two separate lines and displays via LiquidCrystal.h. Scrolling, if the length exceeds your usable display width.
 
 Ultimitely, this is just a little project which I plan on taking from prototype to completion for personal use, but I figured others may find it interesting as well.
 
+Known Issues
+----
+
+ - C# code is messy and super prototypey. Too much hard coded nonsense at the moment.
+ - Occasional timing issues with serial communication (on the C++ side of things).
+
 What's in store down the road?
 ----
-  - Source code cleanup.
-  - Spotify support.
-  - Fix occasional timing issues with serial communication.
-  - Less hard coded sillyness.
-  - Actual versioning.
+
   - More interactive options in C# portion on startup.
-  - Logging to file to keep tabs on what was previously played.
+  - Spotify support.
+  - Unit tests, if I'm feeling generous!
+  - Logging to file to keep tabs on what was previously played (log4net or something).
+  - Maybe port the C# example to something a bit more cross-platform friendly.
   - The sky's the limit, share your suggestions, please!
 
 Flashy Action Shot

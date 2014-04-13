@@ -9,11 +9,6 @@ Included is a sample Arduino C++ schematic which listens via serial port, receiv
 
 Ultimitely, this is just a little project which I plan on taking from prototype to completion for personal use, but I figured others may find it interesting as well.
 
-Known Issues
-----
-
- - Occasional timing issues with serial communication (on the C++ side of things).
-
 What's in store down the road?
 ----
 

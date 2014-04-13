@@ -1,7 +1,7 @@
-Arduino Now Playing
+What's all this, then?
 =========
 
-Arduino Now Playing is a project whose goal is to provide source code to developers, enabling them to send "Now Playing" audio player updates to an [Arduino] connected 16x2 character LED display.
+Arduino Now Playing is a small project whose goal is to provide source code to developers, enabling them to send "Now Playing" audio player updates to an [Arduino] connected 16x2 character LED display.
 
 Currently supported is the fantastic [VLC] player via their jSON Web Interface. A handy example C# console app runs in your taskbar, grabs now_playing data, parses it and pushes it over the serial port of your choosing. The VLC integration was written with [soma fm] in mind, but would likely apply to other streams / local file play too. All you'd need to do is fork the repo, make your updates & profit!
 
@@ -19,15 +19,13 @@ What's in store down the road?
   - Maybe port the C# example to something a bit more cross-platform friendly.
   - The sky's the limit, share your suggestions, please!
 
-Flashy Action Shot
+Flashy action shot
 ----
 
 ![LCD Output](http://i.imgur.com/cSCjJos.jpg "LCD Output")
 
-License
+Legal stuff
 -----------
-
-The MIT License (MIT)
 
 Copyright (c) 2014 Craig Ceremuga
 

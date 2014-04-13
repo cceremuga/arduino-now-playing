@@ -7,8 +7,8 @@
     <ProjectGuid>{AE82FF79-CDC2-4432-BD92-37029CA35CD6}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VLCToSerial</RootNamespace>
-    <AssemblyName>VLCToSerial</AssemblyName>
+    <RootNamespace>NowPlayingToSerial</RootNamespace>
+    <AssemblyName>NowPlayingToSerial</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

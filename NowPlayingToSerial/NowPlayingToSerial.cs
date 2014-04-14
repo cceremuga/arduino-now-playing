@@ -23,7 +23,7 @@ namespace NowPlayingToSerial
         private String _customVlcUrl = String.Empty;
         private SerialPort _outputSerialPort;
         private String _lastSentMessage = String.Empty;
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         /// Constructor which grabs optional overrides via interactive input menu.
@@ -253,15 +253,20 @@ namespace NowPlayingToSerial
             //deserialize
             VlcStatus nowPlaying = JsonConvert.DeserializeObject<VlcStatus>(nowPlayingJson);
 
-            //format
-            String nowPlayingFormatted = nowPlaying.information.category.meta.now_playing.Replace(" - ", "<~>");
+            //ensure playing first
 
-            //if different from last status, update last status, send to port
-            if (_lastSentMessage != nowPlayingFormatted)
+            if (nowPlaying.state != "stopped")
             {
-                _lastSentMessage = nowPlayingFormatted;
+                //format
+                String nowPlayingFormatted = nowPlaying.information.category.meta.now_playing.Replace(" - ", "<~>");
 
-                this.SendTextToSerial(_outputSerialPort, _lastSentMessage);
+                //if different from last status, update last status, send to port
+                if (_lastSentMessage != nowPlayingFormatted)
+                {
+                    _lastSentMessage = nowPlayingFormatted;
+
+                    this.SendTextToSerial(_outputSerialPort, _lastSentMessage);
+                }
             }
         }
 

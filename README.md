@@ -12,15 +12,14 @@ Ultimitely, this is just a little project which I plan on taking from prototype 
 The newest features
 ----
 
+* 4.22.2014 - Spotify support added to C# example console app! Required library: https://code.google.com/p/spotify-local-api
 * 4.13.2014 - log4net added to C# example console app. Logs will be generated / appended to PlayLog.txt in the directory where the application is running.
 * 4.13.2014 - More interactive menu in C# example with configurable VLC paths in prep for Spotify integration, woo!
 
 Future improvements
 ----
 
-* Spotify support.
-* Unit tests, if I'm feeling particularly adventurous.
-* Maybe port the C# example to something a bit more cross-platform friendly.
+* Port the C# example to something a bit more cross-platform friendly.
 * Additional support in Arduino C++ sketch for very long titles.
 * The sky's the limit, share your suggestions, please!
 

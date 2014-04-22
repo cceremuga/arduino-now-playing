@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using JariZ;
+using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -15,11 +16,12 @@ namespace NowPlayingToSerial
     class NowPlayingToSerial
     {
         private const String VLC_WEB_URL = "http://localhost:8080/requests/status.json";
-        private const Int32 DEFAULT_VLC_POLL_RATE = 15000;
+        private const Int32 DEFAULT_POLL_RATE = 30000;
         private const Int32 DEFAULT_BAUD_RATE = 9600;
         private const String DEFAULT_SERIAL_PORT = "COM3";
 
         private Timer _vlcPollTimer;
+        private Timer _spotifyPollTimer;
         private String _customVlcUrl = String.Empty;
         private SerialPort _outputSerialPort;
         private String _lastSentMessage = String.Empty;
@@ -81,7 +83,15 @@ namespace NowPlayingToSerial
                     }
                     else
                     {
-                        Console.WriteLine("You've picked an unavailable option. Nothing left to do but press ENTER to quit.");
+                        try
+                        {
+                            //we're good to go!
+                            InitializeSpotify();
+                        }
+                        catch (WebException ex)
+                        {
+                            LogError("Sorry, there was a problem accessing spotify. Please quit and try again.", ex);
+                        }
                     }
                 }
 
@@ -104,6 +114,49 @@ namespace NowPlayingToSerial
             p._outputSerialPort.Close();
 
             Environment.Exit(0);
+        }
+
+        private void InitializeSpotify()
+        {
+            //fire off now!
+            GrabNowPlayingFromSpotify();
+
+            //30 second timer
+            _spotifyPollTimer = new Timer(DEFAULT_POLL_RATE);
+            _spotifyPollTimer.Elapsed += new ElapsedEventHandler(SpotifyTimerElapsed);
+            _spotifyPollTimer.Enabled = true;
+        }
+
+        private void SpotifyTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            GrabNowPlayingFromSpotify();
+        }
+
+        private void GrabNowPlayingFromSpotify()
+        {
+            SpotifyAPI api = new SpotifyAPI(SpotifyAPI.GetOAuth(), "arduino-serial.spotilocal.com");
+            Responses.CFID cfid = api.CFID;
+
+            if (cfid.error == null)
+            {
+                Responses.Status currentStatus = api.Status;
+
+                if (currentStatus.track != null)
+                {
+                    //format
+                    String nowPlayingFormatted = String.Format("{0}<~>{1}", 
+                        currentStatus.track.track_resource.name, 
+                        currentStatus.track.artist_resource.name);
+
+                    //if different from last status, update last status, send to port
+                    if (_lastSentMessage != nowPlayingFormatted)
+                    {
+                        _lastSentMessage = nowPlayingFormatted;
+
+                        this.SendTextToSerial(_outputSerialPort, _lastSentMessage);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -175,7 +228,7 @@ namespace NowPlayingToSerial
             GrabNowPlayingFromVlc();
 
             //30 second timer
-            _vlcPollTimer = new Timer(DEFAULT_VLC_POLL_RATE);
+            _vlcPollTimer = new Timer(DEFAULT_POLL_RATE);
             _vlcPollTimer.Elapsed += new ElapsedEventHandler(VlcTimerElapsed);
             _vlcPollTimer.Enabled = true;
         }
@@ -254,7 +307,6 @@ namespace NowPlayingToSerial
             VlcStatus nowPlaying = JsonConvert.DeserializeObject<VlcStatus>(nowPlayingJson);
 
             //ensure playing first
-
             if (nowPlaying.state != "stopped")
             {
                 //format

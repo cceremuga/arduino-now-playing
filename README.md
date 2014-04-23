@@ -12,7 +12,7 @@ Ultimitely, this is just a little project which I plan on taking from prototype 
 The newest features
 ----
 
-* 4.22.2014 - Spotify support added to C# example console app! Required library: https://code.google.com/p/spotify-local-api
+* 4.22.2014 - Spotify support added to C# example console app! Required library: [https://code.google.com/p/spotify-local-api]
 * 4.13.2014 - log4net added to C# example console app. Logs will be generated / appended to PlayLog.txt in the directory where the application is running.
 * 4.13.2014 - More interactive menu in C# example with configurable VLC paths in prep for Spotify integration, woo!
 
@@ -60,3 +60,4 @@ SOFTWARE.
 [VLC]:http://www.videolan.org/vlc/index.html
 [soma fm]:http://somafm.com/
 [Arduino]:http://arduino.cc/
+[https://code.google.com/p/spotify-local-api]:https://code.google.com/p/spotify-local-api

@@ -67,3 +67,4 @@ packages/
 #Test files
 *.testsettings
 NowPlayingToSerial/Resources/
+c-sharp-client/NowPlayingToSerial/Resources/

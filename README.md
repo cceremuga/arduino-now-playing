@@ -3,7 +3,7 @@ What's this Arduino Now Playing thing?
 
 Arduino Now Playing is a small project whose goal is to provide source code to developers, enabling them to send "Now Playing" audio player updates to an [Arduino] connected 16x2 character LCD display.
 
-A handy example C# console app runs in your taskbar, grabs metadata, parses it and pushes it over the serial port of your choosing. Currently supported is the fantastic [VLC] player via their jSON Web Interface and [Spotify] thanks to a helpful 3rd party library. The VLC integration was written with [soma fm] in mind, but would likely apply to other streams / local file play too. All you'd need to do is fork the repo and make your updates!
+A handy example Go app runs, grabs metadata, parses it and pushes it over the serial port of your choosing. Currently supported players are the fantastic [VLC] player via their jSON Web Interface and [Spotify]. The VLC integration was written with [soma fm] in mind, but would likely apply to other streams / local file play too. All you'd need to do is fork the repo and make your updates!
 
 Included is a sample Arduino C++ sketch which listens via serial port, receives data, splits artist / track into two separate lines and displays via LiquidCrystal.h. Scrolling, if the length exceeds your usable display width.
 
@@ -12,14 +12,12 @@ Ultimitely, this is just a little project which I plan on taking from prototype 
 The newest features
 ----
 
+* 4.23.2013 - Porting C# console app to Go. Henceforth the C# code is now deprecated in favor of a more cross platform friendly language.
 * 4.22.2014 - Spotify support added to C# example console app! Required library: [https://code.google.com/p/spotify-local-api]
-* 4.13.2014 - log4net added to C# example console app. Logs will be generated / appended to PlayLog.txt in the directory where the application is running.
-* 4.13.2014 - More interactive menu in C# example with configurable VLC paths in prep for Spotify integration, woo!
 
 Future improvements
 ----
 
-* Port the C# example to something a bit more cross-platform friendly.
 * Additional support in Arduino C++ sketch for very long titles.
 * The sky's the limit, share your suggestions, please!
 

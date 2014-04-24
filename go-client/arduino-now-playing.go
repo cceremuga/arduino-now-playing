@@ -5,35 +5,83 @@ import (
 	"github.com/tarm/goserial"
 	"log"
 	"io"
+	"os"
+	"encoding/json"
 )
 
-var portName string = "/dev/tty.usbserial-AM01VD4K"
-var baudRate int = 9600
-var playerType int = 1
+var configFilePath string = "config.json"
+
+var settings struct {
+	PortName string `json:"portName"`
+	BaudRate int `json:"baudRate"`
+	PlayerType int `json:"playerType"`
+}
 
 func main() {
 	//banner print
 	displayBanner()
 
-	if portName != "" && baudRate > 0 {
-		serialConf := &serial.Config{Name: portName, Baud: baudRate}
+	//load config jSON into struct
+	loadConfig()
+
+	//verify port name and baud rate set before continuing
+	if settings.PortName != "" && settings.BaudRate > 0 {
+		//config & open serial connection
+		serialConf := &serial.Config{Name: settings.PortName, Baud: settings.BaudRate}
 
 		ser, err := serial.OpenPort(serialConf)
 
 		if err != nil {
-			log.Fatal(err)
+			endEarly("Could not connect to serial port. Cannot continue.", err.Error())
+		} else {
+			infoMessage("Connected to serial port successfully.")
 		}
 
+		//connected, send test data.
 		sendToSerial(ser, "This is a test ")
+	} else {
+		//something is not configured, back out.
+		endEarly("No baudRate and / or portName specified in config file. Cannot continue.", "")
 	}
 }
 
+//loads a jSON config file, parses it into a struct
+func loadConfig() {
+	configFile, err := os.Open(configFilePath)
+
+	if err != nil {
+		endEarly("Couldn't open config file. Cannot continue.", err.Error())
+	} else{
+		infoMessage("Opened config file successfully.")
+	}
+
+	jsonParser := json.NewDecoder(configFile)
+
+	if err = jsonParser.Decode(&settings); err != nil {
+		endEarly("Couldn't parse config file. Cannot continue.", err.Error())
+	} else {
+		infoMessage("Parsed config file successfully.")
+	}
+}
+
+//prints a fatal error message, then waits for a keypress prior to exit
+func endEarly(msg string, err string) {
+	log.Fatal(msg, " FULL ERROR: ", err, "\n\nExiting immediately.\n\n")
+}
+
+//logs a standard string message
+func infoMessage(msg string) {
+	log.Print(msg)
+}
+
+//sends string data to the serial port passed in
 func sendToSerial(ser io.ReadWriteCloser, msg string) {
 	ser.Write([]byte(msg))
 }
 
+//prints a welcome banner to the start of the app
 func displayBanner() {
-	fmt.Println("    _   __                 ____  __            _            ")
+	fmt.Println("\n    _   __                 ____  __            _            ")
 	fmt.Println("   / | / /___ _      __   / __ \\/ /___ ___  __(_)___  ____ _")
 	fmt.Println("  /  |/ / __ \\ | /| / /  / /_/ / / __ `/ / / / / __ \\/ __ `/")
 	fmt.Println(" / /|  / /_/ / |/ |/ /  / ____/ / /_/ / /_/ / / / / / /_/ / ")
@@ -42,5 +90,5 @@ func displayBanner() {
 	fmt.Println("  / /_____     / ___/___  _____(_)___ _/ /                  ")
 	fmt.Println(" / __/ __ \\    \\__ \\/ _ \\/ ___/ / __ `/ /                   ")
 	fmt.Println("/ /_/ /_/ /   ___/ /  __/ /  / / /_/ / /                    ")
-	fmt.Println("\\__/\\____/   /____/\\___/_/  /_/\\__,_/_/                     \n\n")
+	fmt.Println("\\__/\\____/   /____/\\___/_/  /_/\\__,_/_/                     \n")
 }

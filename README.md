@@ -12,7 +12,7 @@ Ultimitely, this is just a little project which I plan on taking from prototype 
 The newest features
 ----
 
-* 4.23.2013 - Porting C# console app to Go. Henceforth the C# code is now deprecated in favor of a more cross platform friendly language.
+* 4.23.2013 - Start of C# app port to Go. Henceforth the C# code is now deprecated in favor of a more cross platform friendly language. Default branch of repo has been switched to go-port. **For a more stable version, please opt for Master until dev / merge is complete.**
 * 4.22.2014 - Spotify support added to C# example console app! Required library: [https://code.google.com/p/spotify-local-api]
 
 Future improvements

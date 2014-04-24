@@ -68,3 +68,4 @@ packages/
 *.testsettings
 NowPlayingToSerial/Resources/
 c-sharp-client/NowPlayingToSerial/Resources/
+arduino-now-playing

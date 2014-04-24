@@ -2,9 +2,17 @@ package main
 
 import "fmt"
 
+var portName string = "com3"
+var baudRate int = 9600
+var playerType int = 1
+
 func main() {
 	//banner print
 	displayBanner()
+
+	if portName != "" && baudRate > 0 {
+		fmt.Println("TODO: Build everything out here!")
+	}
 }
 
 func displayBanner() {

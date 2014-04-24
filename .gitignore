@@ -69,3 +69,5 @@ packages/
 NowPlayingToSerial/Resources/
 c-sharp-client/NowPlayingToSerial/Resources/
 arduino-now-playing
+go-client/pkg
+go-client/src

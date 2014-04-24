@@ -1,8 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/tarm/goserial"
+	"log"
+	"io"
+)
 
-var portName string = "com3"
+var portName string = "/dev/tty.usbserial-AM01VD4K"
 var baudRate int = 9600
 var playerType int = 1
 
@@ -11,8 +16,20 @@ func main() {
 	displayBanner()
 
 	if portName != "" && baudRate > 0 {
-		fmt.Println("TODO: Build everything out here!")
+		serialConf := &serial.Config{Name: portName, Baud: baudRate}
+
+		ser, err := serial.OpenPort(serialConf)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		sendToSerial(ser, "This is a test ")
 	}
+}
+
+func sendToSerial(ser io.ReadWriteCloser, msg string) {
+	ser.Write([]byte(msg))
 }
 
 func displayBanner() {

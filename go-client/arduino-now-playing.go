@@ -39,10 +39,8 @@ func main() {
 			infoMessage("Connected to serial port successfully.")
 		}
 
-		sendToSerial(ser, "Test")
-
 		//start our X seconds timer
-		startTicker()
+		startTicker(ser)
 	} else {
 		//something is not configured, back out.
 		endEarly("No baudRate and / or portName specified in config file. Cannot continue.", "")
@@ -50,17 +48,17 @@ func main() {
 }
 
 //kicks off our ticker, fires the elapsed once to start
-func startTicker() {
-	tickerElapsed()
+func startTicker(ser io.ReadWriteCloser) {
+	tickerElapsed(ser)
 
 	ticker := time.NewTicker(time.Second * settings.PollRateSeconds)
     for _ = range ticker.C {
-    	tickerElapsed()
+    	tickerElapsed(ser)
 	}
 }
 
 //determines which player to poll, then acts
-func tickerElapsed() {
+func tickerElapsed(ser io.ReadWriteCloser) {
 	infoMessage("Test timer elapsed")
 }
 

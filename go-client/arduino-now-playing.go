@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"encoding/json"
+	"time"
 )
 
 var configFilePath string = "config.json"
@@ -15,6 +16,7 @@ var settings struct {
 	PortName string `json:"portName"`
 	BaudRate int `json:"baudRate"`
 	PlayerType int `json:"playerType"`
+	PollRateSeconds time.Duration `json:"pollRateSeconds"`
 }
 
 func main() {
@@ -37,12 +39,29 @@ func main() {
 			infoMessage("Connected to serial port successfully.")
 		}
 
-		//connected, send test data.
-		sendToSerial(ser, "This is a test ")
+		sendToSerial(ser, "Test")
+
+		//start our X seconds timer
+		startTicker()
 	} else {
 		//something is not configured, back out.
 		endEarly("No baudRate and / or portName specified in config file. Cannot continue.", "")
 	}
+}
+
+//kicks off our ticker, fires the elapsed once to start
+func startTicker() {
+	tickerElapsed()
+
+	ticker := time.NewTicker(time.Second * settings.PollRateSeconds)
+    for _ = range ticker.C {
+    	tickerElapsed()
+	}
+}
+
+//determines which player to poll, then acts
+func tickerElapsed() {
+	infoMessage("Test timer elapsed")
 }
 
 //loads a jSON config file, parses it into a struct

@@ -1,4 +1,4 @@
-![Arduino Now Playing](http://i.imgur.com/NuFMnNg.png)
+![Arduino Now Playing](http://i.imgur.com/NuFMnNg.png "Arduino Now Playing")
 =========
 
 Arduino Now Playing is a small project whose goal is to provide source code to developers, enabling them to send "Now Playing" audio player metadata to an [Arduino] connected 16x2 character LCD display.
@@ -30,9 +30,13 @@ Go terminal app displaying a running log of sent serial data:
 
 ![Go terminal App](http://i.imgur.com/fGaggYi.jpg "Go terminal App")
 
-A prototype Arduino Uno compatible board receiving serial data and displaying on a 16x2 LCD character display:
+A prototype running on a [Sparkfun RedBoard] receiving serial data and displaying on a 16x2 LCD character display:
 
-![LCD Character Display](http://i.imgur.com/cSCjJos.jpg "LCD Character Display")
+![Basic Prototype](http://i.imgur.com/cSCjJos.jpg "Basic Prototype")
+
+My completed build featuring an [Adafruit display] running on an Arduino Uno 
+
+![Completed Build](http://i.imgur.com/jw8FG55.jpg "Completed Build")
 
 Legal stuff
 -----------
@@ -63,3 +67,5 @@ SOFTWARE.
 [Arduino]:http://arduino.cc/
 [https://code.google.com/p/spotify-local-api]:https://code.google.com/p/spotify-local-api
 [Spotify]:https://www.spotify.com/
+[Sparkfun RedBoard]:https://www.sparkfun.com/products/11575
+[Adafruit display]:http://www.adafruit.com/products/716

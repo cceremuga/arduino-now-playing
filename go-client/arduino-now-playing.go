@@ -59,6 +59,9 @@ func main() {
 			infoMessage("Connected to serial port successfully.")
 		}
 
+		//give Arduino a few seconds to catch up.
+		time.Sleep(5 * time.Second)
+
 		//start our X seconds timer
 		startTicker(ser)
 	} else {

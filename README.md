@@ -14,12 +14,13 @@ Ultimitely, this is just a little project which I plan on taking from prototype 
 The newest features
 ----
 
-* 4.23.2013 - Start of C# app port to Go. Henceforth the C# code is now deprecated in favor of a more cross platform friendly language. Default branch of repo has been switched to go-port. **For a more stable version, please opt for Master until this branch has been merged into master.**
-* 4.22.2014 - Spotify support added to C# terminal app! Required library: [https://code.google.com/p/spotify-local-api]
+* **4.26.2014** - Go port stable. Spotify integration next up.
+* **4.23.2013** - Start of C# app port to Go. Henceforth the C# code is now deprecated in favor of a more cross platform friendly language.
 
 Future improvements
 ----
 
+* Spotify integration
 * Additional support in Arduino C++ sketch for very long titles.
 * The sky's the limit, share your suggestions, please!
 

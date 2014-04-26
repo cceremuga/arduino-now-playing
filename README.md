@@ -9,7 +9,7 @@ On the receiving end, an Arduino sketch listens via serial port, receives data, 
 
 Ultimitely, this is just a little project which I plan on taking from prototype to completion for personal use, but I figured others may find it interesting as well.
 
-![Arduino Open Source Community](http://i.imgur.com/Io8z9Hu.png "Arduino Open Source Community")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Go Programming Language](http://i.imgur.com/LYYT3Xj.png "Go Programming Language")
+![Arduino Open Source Community](http://i.imgur.com/Io8z9Hu.png "Arduino Open Source Community")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Go Programming Language](http://i.imgur.com/LYYT3Xj.png "Go Programming Language")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Open Source Hardware](http://i.imgur.com/RKL34qS.png "Open Source Hardware")
 
 The newest features
 ----

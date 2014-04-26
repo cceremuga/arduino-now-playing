@@ -5,9 +5,11 @@ import (
 	"github.com/tarm/goserial"
 	"log"
 	"io"
+	"io/ioutil"
 	"os"
 	"encoding/json"
 	"time"
+	"net/http"
 )
 
 var configFilePath string = "config.json"
@@ -17,6 +19,8 @@ var settings struct {
 	BaudRate int `json:"baudRate"`
 	PlayerType int `json:"playerType"`
 	PollRateSeconds time.Duration `json:"pollRateSeconds"`
+	VlcWebUrl string `json:"vlcWebUrl"`
+	VlcWebPassword string `json:"vlcWebPassword"`
 }
 
 func main() {
@@ -49,17 +53,75 @@ func main() {
 
 //kicks off our ticker, fires the elapsed once to start
 func startTicker(ser io.ReadWriteCloser) {
+	infoMessage("Ticker initialized.")
+
 	tickerElapsed(ser)
 
 	ticker := time.NewTicker(time.Second * settings.PollRateSeconds)
-    for _ = range ticker.C {
-    	tickerElapsed(ser)
+	for _ = range ticker.C {
+		tickerElapsed(ser)
 	}
 }
 
 //determines which player to poll, then acts
 func tickerElapsed(ser io.ReadWriteCloser) {
-	infoMessage("Test timer elapsed")
+	if settings.PlayerType == 1 {
+		pollVlc(ser)
+	} else {
+		pollSpotify(ser)
+	}
+}
+
+//poll VLC for now playing info
+func pollVlc(ser io.ReadWriteCloser) {
+	content, err := getResponseContent(settings.VlcWebUrl, settings.VlcWebPassword)
+
+	if err != nil {
+		infoMessage("Unable to get data from VLC. Double check your url and password.")
+		infoMessage(err.Error())
+	} else {
+		infoMessage(string(content))
+	}
+}
+
+//poll Spotify for now playing info
+func pollSpotify(ser io.ReadWriteCloser) {
+	infoMessage("Spotify polling not implemented yet.")
+}
+
+// Code adapted from http://www.codingcookies.com/2013/03/21/consuming-json-apis-with-go/
+// This function fetch the content of a URL will return it as an
+// array of bytes if retrieved successfully.
+func getResponseContent(url string, password string) ([]byte, error) {
+	// Build the request
+	req, err := http.NewRequest("GET", url, nil)
+
+	if password != "" {
+		req.SetBasicAuth("", password)
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	// Send the request via a client
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	// Defer the closing of the body
+	defer resp.Body.Close()
+
+	// Read the content into a byte array
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	// At this point we're done - simply return the bytes
+	return body, nil
 }
 
 //loads a jSON config file, parses it into a struct
@@ -81,7 +143,7 @@ func loadConfig() {
 	}
 }
 
-//prints a fatal error message, then waits for a keypress prior to exit
+//prints a fatal error message which in turn exits immediately
 func endEarly(msg string, err string) {
 	log.Fatal(msg, " FULL ERROR: ", err, "\n\nExiting immediately.\n\n")
 }
@@ -94,6 +156,8 @@ func infoMessage(msg string) {
 //sends string data to the serial port passed in
 func sendToSerial(ser io.ReadWriteCloser, msg string) {
 	ser.Write([]byte(msg))
+
+	infoMessage(msg)
 }
 
 //prints a welcome banner to the start of the app

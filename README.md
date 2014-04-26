@@ -3,7 +3,7 @@ What's this Arduino Now Playing thing?
 
 Arduino Now Playing is a small project whose goal is to provide source code to developers, enabling them to send "Now Playing" audio player updates to an [Arduino] connected 16x2 character LCD display.
 
-A handy example Go app runs, grabs metadata, parses it and pushes it over the serial port of your choosing. Currently supported players are the fantastic [VLC] player via their jSON Web Interface and [Spotify]. The VLC integration was written with [soma fm] in mind, but would likely apply to other streams / local file play too. All you'd need to do is fork the repo and make your updates!
+A handy Go console app runs, grabs metadata, parses it and pushes it over the serial port of your choosing. Currently supported players are the fantastic [VLC] player via their jSON Web Interface and [Spotify]. The VLC integration was written with [soma fm] in mind, but would likely apply to other streams / local file play too. All you'd need to do is fork the repo and make your updates!
 
 Included is a sample Arduino C++ sketch which listens via serial port, receives data, splits artist / track into two separate lines and displays via LiquidCrystal.h. Scrolling, if the length exceeds your usable display width.
 
@@ -12,8 +12,8 @@ Ultimitely, this is just a little project which I plan on taking from prototype 
 The newest features
 ----
 
-* 4.23.2013 - Start of C# app port to Go. Henceforth the C# code is now deprecated in favor of a more cross platform friendly language. Default branch of repo has been switched to go-port. **For a more stable version, please opt for Master until dev / merge is complete.**
-* 4.22.2014 - Spotify support added to C# example console app! Required library: [https://code.google.com/p/spotify-local-api]
+* 4.23.2013 - Start of C# app port to Go. Henceforth the C# code is now deprecated in favor of a more cross platform friendly language. Default branch of repo has been switched to go-port. **For a more stable version, please opt for Master until this branch has been merged into master.**
+* 4.22.2014 - Spotify support added to C# console app! Required library: [https://code.google.com/p/spotify-local-api]
 
 Future improvements
 ----
@@ -24,9 +24,9 @@ Future improvements
 Flashy action shots
 ----
 
-Example C# console app displaying a running log of sent serial data:
+Go console app displaying a running log of sent serial data:
 
-![C# Console App](http://i.imgur.com/EKAqgqH.jpg "C# Console App")
+![Go Console App](http://i.imgur.com/ivxdnoS.jpg "Go Console App")
 
 A prototype Arduino Uno compatible board receiving serial data and displaying on a 16x2 LCD character display:
 

@@ -10,6 +10,7 @@ import (
 	"encoding/json"
 	"time"
 	"net/http"
+	"strings"
 )
 
 var configFilePath string = "config.json"
@@ -22,6 +23,21 @@ var settings struct {
 	VlcWebUrl string `json:"vlcWebUrl"`
 	VlcWebPassword string `json:"vlcWebPassword"`
 }
+
+type VlcNowPlaying struct {
+	State string `json:"state"`
+	Information struct {
+		Category struct {
+			Meta struct {
+				NowPlaying string `json:"now_playing"`
+			}
+		}
+	}
+
+	NowPlaying string `json:"information.category.meta.now_playing"`
+}
+
+var lastSentMessage string = "Artist - Track"
 
 func main() {
 	//banner print
@@ -80,7 +96,25 @@ func pollVlc(ser io.ReadWriteCloser) {
 		infoMessage("Unable to get data from VLC. Double check your url and password.")
 		infoMessage(err.Error())
 	} else {
-		infoMessage(string(content))
+		//deserialize jSON
+		var vlcStatus VlcNowPlaying
+		err = json.Unmarshal(content, &vlcStatus)
+
+		if err != nil {
+			infoMessage("Unable to parse data returned from VLC.")
+			infoMessage(err.Error())
+		} else {
+			convertForArduino(ser, vlcStatus.Information.Category.Meta.NowPlaying)
+		}
+	}
+}
+
+//convert to format our arduino sketch is expecting
+func convertForArduino(ser io.ReadWriteCloser, msg string) {
+	if msg != "" && lastSentMessage != msg {
+		sendToSerial(ser, strings.Replace(msg, " - ", "<~>", -1))
+
+		lastSentMessage = msg
 	}
 }
 

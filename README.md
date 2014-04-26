@@ -1,19 +1,21 @@
 What's this Arduino Now Playing thing?
 =========
 
-Arduino Now Playing is a small project whose goal is to provide source code to developers, enabling them to send "Now Playing" audio player updates to an [Arduino] connected 16x2 character LCD display.
+Arduino Now Playing is a small project whose goal is to provide source code to developers, enabling them to send "Now Playing" audio player metadata to an [Arduino] connected 16x2 character LCD display.
 
-A handy Go console app runs, grabs metadata, parses it and pushes it over the serial port of your choosing. Currently supported players are the fantastic [VLC] player via their jSON Web Interface and [Spotify]. The VLC integration was written with [soma fm] in mind, but would likely apply to other streams / local file play too. All you'd need to do is fork the repo and make your updates!
+A [Go] terminal app grabs metadata, parses it and pushes it over the serial port of your choosing. Currently supported players are the fantastic [VLC] player via their jSON Web Interface and [Spotify]. The VLC integration was written with [soma fm] in mind, but would likely apply to other streams / local file play too. All you'd need to do is fork the repo and make your updates!
 
-Included is a sample Arduino C++ sketch which listens via serial port, receives data, splits artist / track into two separate lines and displays via LiquidCrystal.h. Scrolling, if the length exceeds your usable display width.
+On the receiving end, an Arduino sketch listens via serial port, receives data, splits artist / track into two separate lines and displays via LiquidCrystal.h. Scrolling, if the length exceeds your usable display width.
 
 Ultimitely, this is just a little project which I plan on taking from prototype to completion for personal use, but I figured others may find it interesting as well.
+
+![Arduino Open Source Community](http://i.imgur.com/Io8z9Hu.png "Arduino Open Source Community")&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Go Programming Language](http://i.imgur.com/LYYT3Xj.png "Go Programming Language")
 
 The newest features
 ----
 
 * 4.23.2013 - Start of C# app port to Go. Henceforth the C# code is now deprecated in favor of a more cross platform friendly language. Default branch of repo has been switched to go-port. **For a more stable version, please opt for Master until this branch has been merged into master.**
-* 4.22.2014 - Spotify support added to C# console app! Required library: [https://code.google.com/p/spotify-local-api]
+* 4.22.2014 - Spotify support added to C# terminal app! Required library: [https://code.google.com/p/spotify-local-api]
 
 Future improvements
 ----
@@ -24,9 +26,9 @@ Future improvements
 Flashy action shots
 ----
 
-Go console app displaying a running log of sent serial data:
+Go terminal app displaying a running log of sent serial data:
 
-![Go Console App](http://i.imgur.com/fGaggYi.jpg "Go Console App")
+![Go terminal App](http://i.imgur.com/fGaggYi.jpg "Go terminal App")
 
 A prototype Arduino Uno compatible board receiving serial data and displaying on a 16x2 LCD character display:
 
@@ -55,6 +57,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+[Go]:http://golang.org
 [VLC]:http://www.videolan.org/vlc/index.html
 [soma fm]:http://somafm.com/
 [Arduino]:http://arduino.cc/

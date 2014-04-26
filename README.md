@@ -1,4 +1,4 @@
-What's this Arduino Now Playing thing?
+![Arduino Now Playing](http://i.imgur.com/NuFMnNg.png)
 =========
 
 Arduino Now Playing is a small project whose goal is to provide source code to developers, enabling them to send "Now Playing" audio player metadata to an [Arduino] connected 16x2 character LCD display.

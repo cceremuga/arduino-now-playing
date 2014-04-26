@@ -26,7 +26,7 @@ Flashy action shots
 
 Go console app displaying a running log of sent serial data:
 
-![Go Console App](http://i.imgur.com/ivxdnoS.jpg "Go Console App")
+![Go Console App](http://i.imgur.com/fGaggYi.jpg "Go Console App")
 
 A prototype Arduino Uno compatible board receiving serial data and displaying on a 16x2 LCD character display:
 

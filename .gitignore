@@ -66,10 +66,4 @@ packages/
 
 #Test files
 *.testsettings
-NowPlayingToSerial/Resources/
-c-sharp-client/NowPlayingToSerial/Resources/
 arduino-now-playing
-go-client/pkg
-go-client/src
-config.json
-go-client/arduino-now-playing.exe
